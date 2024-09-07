@@ -70,9 +70,9 @@ public class Cliente {
         this.codOrcamento++;
     }
 
-    public boolean cadastrarOrcamentos(double valorTotal) {
+    public boolean cadastrarOrcamentos() {
         incrementarCodOrcamento();
-        return this.orcamentos.add(new Orcamento(this.codOrcamento, valorTotal));
+        return this.orcamentos.add(new Orcamento(this.codOrcamento));
     }
 
     public Orcamento getOrcamentoPorCodigo(int codOrcamento) {

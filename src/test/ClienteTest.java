@@ -47,12 +47,12 @@ public class ClienteTest {
 
     @Test
     void testCadastrarOrcamentos() {
-        assertTrue(this.cliente.cadastrarOrcamentos(550.00));
+        assertTrue(this.cliente.cadastrarOrcamentos());
     }
 
     @Test
     void testGetOrcamentoPorCodigo() {
-        this.cliente.cadastrarOrcamentos(550.00);
+        this.cliente.cadastrarOrcamentos();
         List<Orcamento> orcamentos = this.cliente.getAllOrcamentos();
         assertEquals(orcamentos.get(0), this.cliente.getOrcamentoPorCodigo(1));
     }
