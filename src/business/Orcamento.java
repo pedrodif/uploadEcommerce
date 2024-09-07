@@ -4,13 +4,18 @@ import java.util.ArrayList;
 
 public class Orcamento {
     private int codOrcamento;
-    private ArrayList<Pagamento> pagamentos;
     private double valorTotal, valorPago, desconto;
 
-    public Orcamento(int codOrcamento, double valorTotal) {
-        this.valorTotal = valorTotal;
+    private ArrayList<Pagamento> pagamentos;
+    private ArrayList<ItemDeOrcamento> itensDeOrcamento;
+
+    public Orcamento(int codOrcamento) {
+        this.desconto = 0.0;
+        this.valorPago = 0.0;
+        this.valorTotal = 0.0;
         this.codOrcamento = codOrcamento;
         this.pagamentos = new ArrayList<Pagamento>();
+        this.itensDeOrcamento = new ArrayList<ItemDeOrcamento>();
     }
 
     public int getCodOrcamento() {
@@ -21,20 +26,36 @@ public class Orcamento {
         return desconto;
     }
 
-    public void setDesconto(double desconto) {
-        this.desconto = desconto;
+    public void setDesconto(int desconto) {
+        this.desconto = (double) 1 - (desconto / 100);
     }
 
     public double getValorTotal() {
-        return valorTotal;
+        setValorTotal();
+        return this.valorTotal;
     }
 
-    public void setValorTotal(double valorTotal) {
-        this.valorTotal = valorTotal;
+    public void setValorTotal() {
+        double valorRecuperado = this.itensDeOrcamento.stream().mapToDouble(item -> item.getValorItemOrcamento()).sum();
+
+        if (this.desconto > 0.0) {
+            this.valorTotal = valorRecuperado * this.desconto;
+        } else {
+            this.valorTotal = valorRecuperado;
+        }
     }
 
-    public boolean adicionarItem() {
-        return false;
+    public double getValorPago() {
+        setValorPago();
+        return this.valorPago;
+    }
+
+    public void setValorPago() {
+        this.valorPago = this.pagamentos.stream().mapToDouble(pagamento -> pagamento.getValorPagamento()).sum();
+    }
+
+    public boolean adicionarItem(Produto produto, int quantidade) {
+        return this.itensDeOrcamento.add(new ItemDeOrcamento(produto, quantidade));
     }
 
     public void cadastrarPagamento(double valorPagamento) throws Exception {
@@ -46,7 +67,8 @@ public class Orcamento {
     }
 
     public boolean confirmarPgtos() {
-        this.valorPago = this.pagamentos.stream().mapToDouble(pagamento -> pagamento.getValorPagamento()).sum();
+        setValorTotal();
+        setValorPago();
 
         if (this.valorPago == this.valorTotal) {
             return true;
