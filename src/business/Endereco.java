@@ -4,7 +4,7 @@ public class Endereco {
     private int codEndereco, numero, cep;
     private String logradouro, complemento, bairro, cidade, estado;
 
-    public Endereco(int codEndereco, int numero, int cep, String logradouro, String bairro,
+    public Endereco(int codEndereco, int cep, String logradouro, int numero, String bairro,
             String cidade, String estado) {
         this.cep = cep;
         this.numero = numero;
