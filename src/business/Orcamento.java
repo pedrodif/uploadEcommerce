@@ -35,7 +35,7 @@ public class Orcamento {
         return this.valorTotal;
     }
 
-    public void setValorTotal() {
+    private void setValorTotal() {
         double valorRecuperado = this.itensDeOrcamento.stream().mapToDouble(item -> item.getValorItemOrcamento()).sum();
 
         if (this.desconto > 0.0) {
@@ -50,17 +50,17 @@ public class Orcamento {
         return this.valorPago;
     }
 
-    public void setValorPago() {
+    private void setValorPago() {
         this.valorPago = this.pagamentos.stream().mapToDouble(pagamento -> pagamento.getValorPagamento()).sum();
     }
 
-    public boolean adicionarItem(Produto produto, int quantidade) {
+    public boolean cadastrarItemOrcamento(Produto produto, int quantidade) {
         return this.itensDeOrcamento.add(new ItemDeOrcamento(produto, quantidade));
     }
 
-    public void cadastrarPagamento(double valorPagamento) throws Exception {
+    public boolean cadastrarPagamento(double valorPagamento) throws Exception {
         if (this.pagamentos.size() < 2) {
-            this.pagamentos.add(new Pagamento(valorPagamento));
+            return this.pagamentos.add(new Pagamento(valorPagamento));
         } else {
             throw new Exception("Excede o número de pegamentos por orçamento");
         }

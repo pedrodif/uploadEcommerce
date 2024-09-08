@@ -29,5 +29,4 @@ public class Categoria {
     public boolean addProduto(Produto produto) {
         return this.produtos.add(produto);
     }
-
 }
