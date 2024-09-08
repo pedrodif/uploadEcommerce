@@ -27,7 +27,7 @@ public class Orcamento {
     }
 
     public void setDesconto(int desconto) {
-        this.desconto = (double) 1 - (desconto / 100);
+        this.desconto = (double) 1 - (desconto / 100.00);
     }
 
     public double getValorTotal() {
@@ -66,14 +66,14 @@ public class Orcamento {
         }
     }
 
-    public boolean confirmarPgtos() {
+    public boolean confirmarPgtos() throws Exception {
         setValorTotal();
         setValorPago();
 
         if (this.valorPago == this.valorTotal) {
             return true;
         } else {
-            return false;
+            throw new Exception("O pagamento não foi concluído integralmente.");
         }
     }
 }
