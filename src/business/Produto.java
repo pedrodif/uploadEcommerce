@@ -10,7 +10,6 @@ public class Produto {
 
     private int codProduto, quantidade;
     private static final int ESTOQUE_MIN = 5;
-
     private ArrayList<ItemDeOrcamento> itensDeOrcamento;
 
     public Produto(int codProduto, String nomeProduto) {
